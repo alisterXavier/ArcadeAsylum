@@ -40,7 +40,7 @@ app.get("/api/cancel", async (req, res) => {
   res.redirect("/");
 });
 
-app.use(express.static(path.join(__dirname1 + "client/dist")));
+app.use(express.static(path.join(__dirname1 + "/client/dist")));
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname1, "client", "dist", "index.html")),
     (err) => err && res.status(500).send(err);
