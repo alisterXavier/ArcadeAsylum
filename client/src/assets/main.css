@@ -1,0 +1,52 @@
+@import "./keyframes.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue-green-bg: linear-gradient(to top, #09203e 0%, rgb(83, 120, 149) 100%);
+  --shadow: 30px 30px 100px #000000, -30px -30px 100px #1b3d66;
+  --btn-shadow: 20px 20px 50px #000000, -20px -20px 50px #1b3d66;
+  --inset-shadow: inset 30px 30px 60px #0614284d,
+    inset -30px -30px 60px #0c2c5457;
+}
+input:focus {
+  outline: none;
+}
+#app {
+  min-height: 100vh;
+  background: var(--blue-green-bg);
+}
+.section-wrapper {
+  position: relative;
+  z-index: 1;
+  padding-top: 40px;
+  min-height: 100vh;
+}
+.bg-glass {
+  background-color: rgba(0, 0, 0, 0.411);
+}
+.shadow {
+  box-shadow: var(--shadow);
+}
+.btn-shadow {
+  box-shadow: var(--btn-shadow);
+}
+figure,
+img {
+  width: 100%;
+  height: 100%;
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+#gradient-canvas {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  --gradient-color-1: #09203f;
+  --gradient-color-2: #0e305f;
+  --gradient-color-3: #1a3346;
+  --gradient-color-4: #327db6;
+}
