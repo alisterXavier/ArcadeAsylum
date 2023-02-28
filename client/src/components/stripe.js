@@ -14,8 +14,8 @@ export async function getStripeSession(line_items, items) {
         payment_method_types: ["card"],
         mode: "payment",
         success_url:
-          "http://localhost:8081/api/success?id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:8081/api/cancel?id={CHECKOUT_SESSION_ID}",
+          "https://arcade-asylum.vercel.app/api/success?id={CHECKOUT_SESSION_ID}",
+        cancel_url: "https://arcade-asylum.vercel.app/api/cancel?id={CHECKOUT_SESSION_ID}",
         line_items,
       }),
     }
