@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleSelectGame(data) {
-      this.$router.push({ path: `/game/${data.id}`, replace: true });
+      this.$router.push({ path: `/game/${data.id}` });
     },
   },
   mounted() {
@@ -74,7 +74,7 @@ export default {
       </div>
       <div
         class="w-full h-[200px] md:h-[350px] lg:w-[50%] lg:h-full hover:ring ring-orange-400 rounded-lg overflow-hidden cursor-pointer"
-        @click="() => $router.push({ path: '/search/sale', replace: true })"
+        @click="() => $router.push({ path: '/search/sale' })"
       >
         <figure v-if="Object.keys(gameData).length > 0">
           <img src="/src/assets/images/sale.jpg" />

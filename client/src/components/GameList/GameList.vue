@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     handleSelectGame(data) {
-      this.$router.push({ path: `/game/${data.id}`, replace: true });
+      this.$router.push({ path: `/game/${data.id}`});
     },
   },
 };

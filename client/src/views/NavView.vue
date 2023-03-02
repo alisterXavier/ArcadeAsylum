@@ -23,7 +23,7 @@ const isLogged = computed(() => store.logged);
         </div>
         <div
           class="nav-item relative h-[25px] lg:w-[30px] lg:h-[30px]"
-          @click="() => $router.push({ path: '/basket', replace: true })"
+          @click="() => $router.push({ path: '/basket' })"
         >
           <img src="@/assets/icons/basket.svg" />
           <div
@@ -35,7 +35,7 @@ const isLogged = computed(() => store.logged);
         </div>
         <div
           class="nav-item h-[25px] lg:w-[30px] lg:h-[30px]"
-          @click="() => $router.push({ path: '/library', replace: true })"
+          @click="() => $router.push({ path: '/library' })"
         >
           <img src="@/assets/icons/books.svg" />
         </div>
@@ -46,7 +46,7 @@ const isLogged = computed(() => store.logged);
       >
         <div
           class="nav-item flex justify-center items-center h-[35px] lg:w-[30px] lg:h-[30px] profile"
-          @click="() => $router.push({ path: '/profile', replace: true })"
+          @click="() => $router.push({ path: '/profile' })"
         >
           <img :src="store.userProfile.photo" class="rounded w-[35px]"/>
         </div>
