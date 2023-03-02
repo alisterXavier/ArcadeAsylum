@@ -44,9 +44,6 @@ export const useAsylumState = defineStore("asylumState", {
       user.basket = this.HomeState.filter((item) =>
         user.basket.some((game) => game === item.id)
       );
-      // user.library = this.HomeState.filter((item) =>
-      //   user.library.some((game) => game === item.id)
-      // );
       this.userProfile = user;
       const colRef = collection(db, "checkouts");
       const queryRef = await getDocs(

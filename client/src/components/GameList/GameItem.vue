@@ -42,7 +42,7 @@ var inLibrary = computed(() => store.inLibrary(props.game.id));
       <div
         class="ml-auto"
         :class="props.displayPrice && 'hidden'"
-        v-if="inBasket !==  undefined"
+        v-if="inBasket !==  undefined && game.price !== 'TBA'"
       >
         <figure
           class="w-[40px] list-shadow bg-red-500 rounded-md transition ease-in active:shadow-none"
