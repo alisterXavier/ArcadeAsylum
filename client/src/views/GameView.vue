@@ -1,8 +1,12 @@
 <script>
 import { useAsylumState } from "../stores/home";
 import { storeToRefs } from "pinia";
+import SkeletonLoading from "@/components/SkeletonLoading.vue";
 
 export default {
+  components: {
+    SkeletonLoading,
+  },
   data() {
     return {
       store: useAsylumState(),
@@ -12,33 +16,19 @@ export default {
   },
   computed: {
     gameData: function () {
-      const data = this.store.HomeState.find((data) => data.id === this.Id);
-      if (data) return data;
-      return [];
-    },
-    inCart: function () {
-      return this.store.userProfile.basket
-        ? this.store.userProfile.basket.some(
-            (value) => value.id === this.Id
-          )
-        : undefined;
-    },
-    inLibrary: function () {
-      return (
-        this.store.userProfile.library &&
-        this.store.userProfile.library.some(
-          (value) => value.id === this.Id
-        )
+      return this.store.HomeState.find(
+        (data) => data.id === this.$route.params.id
       );
     },
-  },
-  watch: {
-    "$route.params.id": {
-      handler: function (id) {
-        this.Id = id;
-      },
-      deep: true,
-      immediate: true,
+    inCart: function () {
+      return this.store.userProfile.basket.some(
+        (value) => value.id === this.$route.params.id
+      );
+    },
+    inLibrary: function () {
+      return this.store.userProfile.library.some(
+        (value) => value.id === this.$route.params.id
+      );
     },
   },
   mounted() {
@@ -58,22 +48,33 @@ export default {
 </script>
 
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-[90%]">
     <div class="game w-full h-full flex items-center" v-if="gameData">
       <img
         class="background invisible lg:visible"
         :src="gameData.imageBackground"
       />
-      <div class="w-full h-[60%] relative z-10 lg:flex items-end mb-20">
-        <figure class="w-[150px] lg:w-[300px] lg:h-[400px]">
+      <div
+        class="w-full lg:h-[65%] relative z-10 lg:flex items-start mb-20 lg:mb-0"
+      >
+        <figure class="w-[150px] lg:w-[300px] lg:h-full">
           <img :src="gameData.imageCover" />
+          <SkeletonLoading
+            classList="w-[150px] lg:w-[300px] lg:h-[400px]"
+            v-if="!gameData"
+          />
         </figure>
         <div
           class="game-details lg:ml-5 mt-5 lg:mt-0 text-white flex flex-col w-full lg:w-[70%]"
         >
           <div class="flex flex-col lg:w-[70%]">
-            <div class="text-4xl">{{ gameData.title }}</div>
+            <div class="text-4xl font-bold">{{ gameData.title }}</div>
             <div class="text-1xl my-5">{{ gameData.description }}</div>
+            <SkeletonLoading classList="lg:w-[70%] h-[20%]" v-if="!gameData" />
+            <SkeletonLoading
+              classList="lg:w-[70%] h-[50%] my-5"
+              v-if="!gameData"
+            />
           </div>
           <div class="flex my-1">
             <p>Developers:</p>
@@ -83,7 +84,7 @@ export default {
             <p>Genre:</p>
             <div class="ml-2">
               <router-link
-                class="ml-1"
+                class="ml-1 underline"
                 v-for="(genre, index) in gameData.genres"
                 :key="index"
                 :to="`/search/genre/${genre}`"
@@ -119,7 +120,7 @@ export default {
             </div>
             <div class="flex justify-between lg:w-[70%] my-3" v-if="inLibrary">
               <div class="flex items-center">
-                <p class="p-2">Purchased</p>
+                <p class="p-2">In Library</p>
               </div>
             </div>
             <p>{{ gameData.released }}</p>

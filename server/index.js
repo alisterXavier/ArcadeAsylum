@@ -14,11 +14,13 @@ app.use(
   })
 );
 app.get("/api/success", async (req, res) => {
+  const date = new Date()
   const { id } = req.query;
 
   const ck_doc = db.collection("checkouts").doc(id);
   ck_doc.update({
     payment: 200,
+    date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
   });
 
   const ckRef = await ck_doc.get();

@@ -1,7 +1,6 @@
 import { auth, db, google } from "./firebase";
 import { signInWithPopup } from "firebase/auth";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
-import { useAsylumState } from "@/stores/home";
 
 export const googleSignIn = () => {
   signInWithPopup(auth, google)
@@ -16,7 +15,6 @@ export const googleSignIn = () => {
       };
       storeUser(user);
     })
-    // .catch((err) => {});
 };
 
 const storeUser = async (user) => {
@@ -31,6 +29,4 @@ const storeUser = async (user) => {
     const docRef = doc(db, "users", user.userId);
     setDoc(docRef, user);
   }
-  const store = useAsylumState();
-  store.userProfile = user;
 };

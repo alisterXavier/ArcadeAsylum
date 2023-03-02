@@ -1,27 +1,20 @@
 <script setup>
 defineProps({
-  height: {
-    type: String,
-  },
-  width: {
-    type: String,
-  },
-  borderRadius: {
+  classList: {
     type: String,
   },
   times: {
     type: String,
   },
-  marginRight: {
-    type: String,
-  },
-  marginLeft: {
-    type: String,
-  },
 });
 </script>
 <template lang="">
-  <div class="skeletonLoading" v-for="time in Number(times)" :key="time"></div>
+  <div
+    class="skeletonLoading"
+    :class="classList"
+    v-for="time in Number(times)"
+    :key="time"
+  ></div>
 </template>
 <style>
 .skeletonLoading {
@@ -30,7 +23,7 @@ defineProps({
   margin-right: v-bind(marginRight);
   margin-left: v-bind(marginLeft);
   border-radius: v-bind(borderRadius);
-  background-color: rgba(155, 155, 155, 0.842);
+  background-color: rgba(182, 182, 182, 0.61);
   animation: pluseFade 1.2s linear infinite;
 }
 </style>

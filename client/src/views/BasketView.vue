@@ -1,8 +1,9 @@
 <script setup>
 import { useAsylumState } from "@/stores/home";
-import GameList from "../components/GameList.vue";
+import GameList from "@/components/GameList/GameList.vue";
 import { getStripeSession } from "@/components/stripe";
 import { computed } from "vue";
+import { debounceFn } from "../components/debounce";
 
 const store = useAsylumState();
 const basketState = computed(() => store.userProfile.basket);
@@ -14,17 +15,19 @@ const handleSubmit = () => {
       quantity: 1,
     };
   });
-  const ids = basketState.value.map((item) => item.id);
-
-  getStripeSession(line_items, ids);
+  const ids = {
+    list: basketState.value,
+    total: basketState.value.reduce((a, b) => a + Number(b.price.substring(1)), 0),
+  };
+  debounceFn(() => getStripeSession(line_items, ids), 1000)
 };
 </script>
 <template>
   <div class="w-full h-full">
     <div class="flex flex-col lg:flex-row" v-if="basketState">
       <div class="w-[70%] h-fit">
-        <GameList v-bind:gameList="basketState" v-if="basketState.length > 0" />
-        <div class="w-[300px] h-[300px] flex items-center" v-else>
+        <GameList :gameList="basketState" v-if="basketState.length > 0" />
+        <div class="w-[300px] h-[300px] mt-5 flex items-center" v-else>
           <img
             src="https://media.tenor.com/CMpNQO7SBWIAAAAC/no-money-donald-duck.gif"
           />
@@ -55,7 +58,7 @@ const handleSubmit = () => {
             </p>
           </div>
         </div>
-        <div class="col s12 place-order-button-block">
+        <div class="col s12 place-order-button-block" v-if="basketState.length > 0">
           <button class="btn-shadow w-full p-3 mt-5" @click="handleSubmit">
             Order
           </button>

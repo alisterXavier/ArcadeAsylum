@@ -1,25 +1,16 @@
 <script setup>
 import { useAsylumState } from "@/stores/home";
-import GameList from "../components/GameList.vue";
-import { computed, watch } from "vue";
+import GameList from "@/components/GameList/GameList.vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-var id = "";
 const route = useRoute();
 const store = useAsylumState();
-const search = computed(() => store.getSearch(id));
-
-watch(
-  route,
-  () => {
-    id = route.params.id;
-  },
-  { immediate: true, deep: true }
-);
+const search = computed(() => store.getSearch(route.params.id.toLowerCase()));
 </script>
 <template lang="">
   <div class="w-full h-full">
-    <h1 class="text-3xl text-white">Search results for {{ id }}:</h1>
+    <h1 class="text-3xl my-5 text-white">Search results for {{ route.params.id }}:</h1>
     <GameList :gameList="search" />
   </div>
 </template>

@@ -15,7 +15,8 @@ export async function getStripeSession(line_items, items) {
         mode: "payment",
         success_url:
           "https://arcade-asylum.vercel.app/api/success?id={CHECKOUT_SESSION_ID}",
-        cancel_url: "https://arcade-asylum.vercel.app/api/cancel?id={CHECKOUT_SESSION_ID}",
+        cancel_url:
+          "https://arcade-asylum.vercel.app/api/cancel?id={CHECKOUT_SESSION_ID}",
         line_items,
       }),
     }
@@ -31,8 +32,10 @@ async function createCheckoutSession(line_items, ck_id) {
   await setDoc(doc(db, "checkouts", ck_id), {
     id: ck_id,
     uid: auth.currentUser?.uid,
-    items: line_items,
+    items: line_items.list,
     payment: null,
+    total: line_items.total,
+    date: null,
   });
 }
 

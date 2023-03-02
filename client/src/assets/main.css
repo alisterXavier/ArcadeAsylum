@@ -9,6 +9,7 @@
   --btn-shadow: 20px 20px 50px #000000, -20px -20px 50px #1b3d66;
   --inset-shadow: inset 30px 30px 60px #0614284d,
     inset -30px -30px 60px #0c2c5457;
+  --game-shadow: 10px 10px 20px #0e131b, -10px -10px 20px #384d6b;
 }
 input:focus {
   outline: none;
@@ -28,6 +29,9 @@ input:focus {
 }
 .shadow {
   box-shadow: var(--shadow);
+}
+.list-shadow {
+  box-shadow: var(--game-shadow);
 }
 .btn-shadow {
   box-shadow: var(--btn-shadow);

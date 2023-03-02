@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import BasketView from "../views/BasketView.vue";
-import LibraryView from "../views/LibraryView.vue";
-import SearchView from "../views/SearchView.vue";
-import GenreView from "../views/GenreView.vue";
-import GameView from "../views/GameView.vue";
-import SaleView from "../views/SaleView.vue";
+import HomeView from "@/views/HomeView.vue";
+import BasketView from "@/views/BasketView.vue";
+import LibraryView from "@/views/LibraryView.vue";
+import SearchView from "@/views/SearchView.vue";
+import GenreView from "@/views/GenreView.vue";
+import GameView from "@/views/GameView.vue";
+import SaleView from "@/views/SaleView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
           component: GenreView,
         },
       ],
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: ProfileView,
     },
   ],
 });

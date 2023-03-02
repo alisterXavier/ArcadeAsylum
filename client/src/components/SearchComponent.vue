@@ -6,6 +6,7 @@ import {
   MenuItems,
 } from "@headlessui/vue";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+import { useAsylumState } from "../stores/home";
 
 export default {
   components: {
@@ -15,29 +16,66 @@ export default {
     MenuItem,
     MenuItems,
   },
+  data() {
+    return {
+      store: useAsylumState(),
+      searchRes: undefined,
+    };
+  },
   methods: {
+    handleSearchRes: function(value){
+      this.$router.push({ path: `/search/${value}` });
+      this.$refs.searchRef.value = ""
+      this.searchRes = undefined
+    },
     handleSearch: function (e) {
-      const { value } = e.currentTarget;
+      let { value } = e.currentTarget;
       if (value.length > 0) {
         this.$router.push({ path: `/search/${value}` });
+        this.$refs.searchRef.value = "";
       }
+    },
+    handleSearchResFilter: function () {
+      const { value } = this.$refs.searchRef;
+      this.searchRes =
+        value.length > 0
+          ? this.store.HomeState.filter((items) =>
+              items.title.toLowerCase().includes(value)
+            )
+          : undefined;
     },
   },
 };
 </script>
 <template>
-  <div class="search-wrapper w-full lg:w-[60%]">
-    <label class="rounded-lg bg-glass">
-      <input
-        type="text"
-        @keyup.enter="handleSearch"
-        class="rounded-lg bg-transparent pl-3 text-white w-[80%]"
-        placeholder="Search for a game"
-      />
-
+  <div class="search-wrapper relative z-20 w-full lg:w-[50%]">
+    <div class="search rounded-lg bg-glass flex items-center">
+      <div class="w-[80%] h-full relative">
+        <input
+          type="text"
+          @keyup.enter="handleSearch"
+          class="rounded-lg bg-transparent pl-3 text-white w-full"
+          placeholder="Search for a game"
+          @input="handleSearchResFilter"
+          ref="searchRef"
+        />
+        <div
+          class="absolute left-0 origin-top-right mt-2 w-full h-fit bg-white text-black rounded-md overflow-hidden"
+        >
+          <p
+            class="p-3 hover:bg-gray-200 cursor-pointer"
+            v-for="(item, index) in searchRes"
+            :key="index"
+            :class="index > 0 && 'border-t'"
+            @click="() => handleSearchRes(item.title)"
+          >
+            {{ item.title }}
+          </p>
+        </div>
+      </div>
       <CustomMenu
         as="div"
-        class="select w-[20%] relative inline-block text-left"
+        class="select w-[15%] h-fit relative inline-block text-left"
       >
         <div>
           <MenuButton
@@ -150,7 +188,7 @@ export default {
           </MenuItems>
         </transition>
       </CustomMenu>
-    </label>
+    </div>
   </div>
 </template>
 <style>
@@ -158,10 +196,10 @@ export default {
   height: 50px;
 }
 
-.search-wrapper label {
-  display: inline-block;
+.search-wrapper .search {
   height: 100%;
   width: 100%;
+  background-color: rgba(255, 255, 255, 0.301);
 }
 
 input {

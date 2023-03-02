@@ -1,8 +1,9 @@
 <script>
 import { RouterView } from "vue-router";
-import NavView from "./views/NavView.vue";
+import NavView from "@/views/NavView.vue";
 import { onMounted } from "vue";
-import { useAsylumState } from "./stores/home";
+import SearchComponent from "@/components/SearchComponent.vue";
+import { useAsylumState } from "@/stores/home";
 import { Gradient } from "@/components/Gradient";
 import { auth, db } from "@/components/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -18,6 +19,7 @@ export default {
   components: {
     NavView,
     RouterView,
+    SearchComponent,
   },
   setup() {
     onMounted(() => {
@@ -25,7 +27,8 @@ export default {
       gradient.initGradient("#gradient-canvas");
     });
   },
-  mounted() {
+  async mounted() {
+    await this.store.init();
     onAuthStateChanged(auth, async (res) => {
       if (res) {
         const uid = res.uid;
@@ -34,25 +37,24 @@ export default {
         if (data.exists()) {
           const user = {
             userId: data.data().userId,
-            username: data.data().displayName,
+            username: data.data().username,
             email: data.data().email,
-            photo: data.data().photoURL,
+            photo: data.data().photo,
             library: data.data().library,
             basket: data.data().basket,
           };
-
-          this.store.userInit(user);
+          await this.store.userInit(user);
         }
       }
     });
-    this.store.init();
   },
 };
 </script>
 <template>
   <main class="main-wrapper flex">
     <NavView />
-    <div class="section-wrapper w-full lg:w-[85vw] p-4 lg:pt-[40px]">
+    <div class="section-wrapper w-full lg:w-[80vw] p-4 lg:pt-[40px]">
+      <search-component />
       <RouterView />
     </div>
     <canvas id="gradient-canvas" data-transition-in />

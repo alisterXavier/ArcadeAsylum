@@ -1,6 +1,6 @@
 <script setup>
 import { useAsylumState } from "@/stores/home";
-import GameList from "@/components/GameList.vue";
+import GameList from "@/components/GameList/GameList.vue";
 
 const store = useAsylumState();
 const sale = store.getSale();
