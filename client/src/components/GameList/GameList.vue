@@ -23,9 +23,9 @@ export default {
 </script>
 <template lang="">
   <div class="flex flex-wrap">
-    <div class="flex flex-wrap" v-if="Object.keys(store.HomeState).length > 0">
+    <div class="flex flex-wrap w-full" v-if="Object.keys(store.HomeState).length > 0">
       <div
-        class="game-item relative list-shadow rounded-md w-[45%] h-[200px] md:w-[30%] md:h-[300px] my-2 mr-[9px] lg:my-[15px] lg:w-[230px] lg:h-[380px]"
+        class="game-item relative list-shadow rounded-md w-[45%] h-[250px] md:w-[30%] md:h-[300px] my-2 mr-[9px] lg:my-[15px] lg:w-[230px] lg:h-[380px]"
         v-for="d in this.gameList"
         :key="d.id"
         @click="() => handleSelectGame(d)"

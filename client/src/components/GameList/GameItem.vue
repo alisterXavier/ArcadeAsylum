@@ -14,17 +14,17 @@ var inLibrary = computed(() => store.inLibrary(props.game.id));
     <figure class="gameCover w-full h-full relative z-10">
       <img class="w-full h-full" :src="game.imageCover" />
     </figure>
-    <div class="flex items-center px-3 py-2">
+    <div class="flex items-center px-3 py-1 md:py-2">
       <div
         class="game-details w-[110px]"
         :class="props.displayPrice && 'w-full'"
       >
         <p
-          class="text-sm invisible whitespace-nowrap w-full text-ellipsis overflow-hidden lg:visible text-white"
+          class="text-xs lg:text-sm whitespace-nowrap w-full text-ellipsis overflow-hidden text-white"
         >
           {{ game.title }}
         </p>
-        <div class="flex justify-between items-center text-sm text-gray-200">
+        <div class="flex justify-between items-center text-xs lg:text-sm text-gray-200">
           <p :class="props.displayPrice && 'hidden'">
             <span>
               {{ game.price }}
@@ -45,7 +45,7 @@ var inLibrary = computed(() => store.inLibrary(props.game.id));
         v-if="inBasket !==  undefined && game.price !== 'TBA'"
       >
         <figure
-          class="w-[40px] list-shadow bg-red-500 rounded-md transition ease-in active:shadow-none"
+          class="w-[30px] lg:w-[40px] list-shadow bg-red-500 rounded-md transition ease-in active:shadow-none"
           v-if="!inBasket && !inLibrary"
           @click="
             (e) => {
@@ -57,7 +57,7 @@ var inLibrary = computed(() => store.inLibrary(props.game.id));
           <img src="@/assets/icons/add.svg" class="" />
         </figure>
         <figure
-          class="w-[40px] list-shadow bg-red-500 rounded-md transition ease-in active:shadow-none"
+          class="w-[30px] lg:w-[40px] list-shadow bg-red-500 rounded-md transition ease-in active:shadow-none"
           v-else-if="!inLibrary"
           @click="
             (e) => {
@@ -68,7 +68,7 @@ var inLibrary = computed(() => store.inLibrary(props.game.id));
         >
           <img src="@/assets/icons/remove.svg" class="" />
         </figure>
-        <p v-else class="text-sm text-gray-300">In Library</p>
+        <p v-else class="text-xs lg:text-sm text-gray-300">In Library</p>
       </div>
     </div>
   </div>
@@ -97,9 +97,5 @@ var inLibrary = computed(() => store.inLibrary(props.game.id));
 }
 
 @media screen and (max-width: 1024px) {
-  .game-item .game-details {
-    bottom: 1%;
-    font-weight: bolder;
-  }
 }
 </style>

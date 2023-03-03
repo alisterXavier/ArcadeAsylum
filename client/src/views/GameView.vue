@@ -48,7 +48,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-full h-[90%]">
+  <div class="w-full h-[90%] my-5">
     <div class="game w-full h-full flex items-center" v-if="gameData">
       <img
         class="background invisible lg:visible"

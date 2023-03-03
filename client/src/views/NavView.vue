@@ -2,7 +2,7 @@
 import { googleSignIn } from "@/components/signIn";
 import { useAsylumState } from "@/stores/home";
 import { computed } from "vue";
-import {auth} from '@/components/firebase'
+import { auth } from "@/components/firebase";
 const store = useAsylumState();
 const isLogged = computed(() => store.logged);
 </script>
@@ -22,15 +22,17 @@ const isLogged = computed(() => store.logged);
           <img src="@/assets/icons/house.svg" />
         </div>
         <div
-          class="nav-item relative h-[25px] lg:w-[30px] lg:h-[30px]"
+          class="nav-item h-[25px] lg:w-[30px] lg:h-[30px]"
           @click="() => $router.push({ path: '/basket' })"
         >
-          <img src="@/assets/icons/basket.svg" />
-          <div
-            class="absolute -right-2 -top-2 bg-black rounded-full w-[20px] h-[20px] flex items-center justify-center"
-            v-if="store.count && store.count > 0"
-          >
-            <p class="text-xs">{{ store.count }}</p>
+          <div class="relative">
+            <img class="h-[25px]" src="@/assets/icons/basket.svg" />
+            <div
+              class="absolute -right-3 -top-3 bg-black rounded-full w-[20px] h-[20px] flex items-center justify-center"
+              v-if="store.count && store.count > 0"
+            >
+              <p class="text-xs">{{ store.count }}</p>
+            </div>
           </div>
         </div>
         <div
@@ -48,16 +50,16 @@ const isLogged = computed(() => store.logged);
           class="nav-item flex justify-center items-center h-[35px] lg:w-[30px] lg:h-[30px] profile"
           @click="() => $router.push({ path: '/profile' })"
         >
-          <img :src="store.userProfile.photo" class="rounded w-[35px]"/>
+          <img :src="store.userProfile.photo" class="rounded w-[35px]" />
         </div>
         <div
           class="nav-item h-[25px] lg:w-[30px] lg:h-[30px] log"
           @click="
-          () => {
-            auth.signOut();
-            store.userProfile = {};
-          }
-        "
+            () => {
+              auth.signOut();
+              store.userProfile = {};
+            }
+          "
         >
           <img src="../assets/icons/log.svg" />
         </div>
@@ -78,14 +80,17 @@ const isLogged = computed(() => store.logged);
 .nav-wrapper {
   z-index: 2;
 }
+
 .nav {
   backdrop-filter: blur(20px);
 }
+
 .nav-section {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
+
 .nav-item {
   display: flex;
   align-items: center;
@@ -93,19 +98,23 @@ const isLogged = computed(() => store.logged);
   color: white;
   cursor: pointer;
 }
+
 @media screen and (max-width: 1023px) {
   .nav-wrapper {
     position: fixed;
     top: 90%;
     bottom: 0%;
   }
+
   .nav {
     background-color: black !important;
   }
+
   .nav-section {
     justify-content: space-evenly;
     flex-direction: row;
   }
+
   .nav-item {
     width: 20vw;
   }
