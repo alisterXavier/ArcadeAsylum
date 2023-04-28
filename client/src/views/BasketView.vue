@@ -25,7 +25,7 @@ const handleSubmit = () => {
 <template>
   <div class="w-full h-full">
     <div class="flex flex-col lg:flex-row" v-if="basketState">
-      <div class="w-[70%] h-fit">
+      <div class="w-full lg:w-[70%] relative z-[1] h-fit">
         <GameList :gameList="basketState" v-if="basketState.length > 0" />
         <div class="w-[300px] h-[300px] mt-5 flex items-center" v-else>
           <img
